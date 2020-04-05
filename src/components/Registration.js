@@ -1,83 +1,97 @@
-import React, { useState, useContext } from "react";
-import { DataContext } from "./DataContext";
+// import React, { useState, useContext } from "react";
+// import { DataContext } from "./DataContext";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Form, Input, Button, FormGroup } from "reactstrap";
+import { Input, Button, Form } from "reactstrap";
 import unnamed from "./styles/unnamed.png";
 import "./styles/style.css";
+import UseFromValidation from "./UseFormvalidation";
+import ValidateAuth from "./ValidateAuth";
 
 const Registration = () => {
-  const [userName, setUserName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [password2, setPassword2] = useState();
-  const { addData } = useContext(DataContext);
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    handleBlur,
+    isSubmiting
+  } = UseFromValidation(ValidateAuth);
 
-  const onsubmit = e => {
-    e.preventDefault();
+  // const onsubmit = e => {
+  //   e.preventDefault();
 
-    const newdata = {
-      userName,
-      email,
-      password
-    };
+  //   const newdata = {
+  //     userName,
+  //     email,
+  //     password
+  //   };
 
-    addData(newdata);
-  };
+  //   addData(newdata);
+  // };
 
   return (
-    <React.Fragment>
-      <div id="login-box">
-        <div className="left">
-          <Form onSubmit={onsubmit}>
-            <h2 className="topic">Registration</h2>
-            <Link to="/registration"></Link>
-            <FormGroup>
-              <Input
-                onChange={event => {
-                  setUserName(event.target.value);
-                }}
-                type="text"
-                name="username"
-                placeholder="Username"
-              />
+    <div id="login-box">
+      <div className="left">
+        <div>
+          <Link to="/registration"></Link>
+          <h2 className="topic">Registration</h2>
+          <Form onSubmit={handleSubmit} noValidate>
+            <Input
+              onBlur={handleBlur}
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={values.username}
+              onChange={handleChange}
+            />
+            {errors.username && <p className="error-text">{errors.username}</p>}
 
-              <Input
-                onChange={event => {
-                  setEmail(event.target.value);
-                }}
-                type="text"
-                name="email"
-                placeholder="E-mail"
-              />
+            <Input
+              onBlur={handleBlur}
+              type="email"
+              name="email"
+              placeholder="email"
+              value={values.email}
+              onChange={handleChange}
+            />
+            {errors.email && <p className="error-text">{errors.email}</p>}
+            <Input
+              onBlur={handleBlur}
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={values.password}
+              onChange={handleChange}
+            />
+            {errors.password && <p className="error-text">{errors.password}</p>}
 
-              <Input
-                onChange={event => {
-                  setPassword(event.target.value);
-                }}
-                type="password"
-                name="password"
-                placeholder="Password"
-              />
-
-              <Input
-                onChange={event => {
-                  setPassword2(event.target.value);
-                }}
-                type="password"
-                name="password2"
-                placeholder="Retype password"
-              />
-              <Button type="submit" name="signup_submit" className="btn">
-                submit
-              </Button>
-            </FormGroup>
+            <Input
+              onBlur={handleBlur}
+              type="password"
+              name="password2"
+              placeholder="Retype password"
+              value={values.password2}
+              onChange={handleChange}
+            />
+            {errors.password2 && (
+              <p className="error-text">{errors.password2}</p>
+            )}
+            <Button
+              disabled={isSubmiting}
+              type="submit"
+              name="signup_submit"
+              className="btn"
+            >
+              submit
+            </Button>
           </Form>
         </div>
-        <div className="right">
-          <img src={unnamed} alt="unnamed" className="image"></img>
-        </div>
       </div>
-    </React.Fragment>
+      <div className="right">
+        <img src={unnamed} alt="unnamed" className="image"></img>
+      </div>
+    </div>
   );
 };
 

@@ -1,59 +1,77 @@
-import React, { useContext, useState } from "react";
-import { DataContext } from "./DataContext";
+// import React, { useContext, useState } from "react";
+import React from "react";
+// import { DataContext } from "./DataContext";
 import { Form, Input, Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import inkscape from './styles/inkscape.png'
+import inkscape from "./styles/inkscape.png";
 import "./styles/style.css";
-
-
+import UseFromValidation from "./UseFormvalidation";
+import ValidateAuth from "./ValidateAuth";
 
 const Login = () => {
-  const { addData } = useContext(DataContext);
-  const [userName, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    handleBlur,
+    isSubmiting
+  } = UseFromValidation(ValidateAuth);
 
-  const onsubmit = e => {
-    e.preventDefault();
+  // const { addData } = useContext(DataContext);
 
-    const newdata = {
-      userName,
-      password
-    };
+  // const onsubmit = e => {
 
-    addData(newdata);
-  };
+  //   // const newdata = {
+  //   //   {values.userName}
+  //   //   {values.password}
+  //   // };
+
+  //   // addData(newdata);
+  // };
 
   return (
-    <React.Fragment>
-      <Form id="login-box" onSubmit={onsubmit}>
-        <div className="left">
+    <div id="login-box">
+      <div className="left">
+        <div>
           <Link to="/"></Link>
-          <h2 className='topic'>Sign up</h2>
+          <h2 className="topic">Sign up</h2>
 
-          <Input
-            onChange={event => {
-              setUserName(event.target.value);
-            }}
-            type="text"
-            name="username"
-            placeholder="Username"
-          />
+          <Form onSubmit={handleSubmit} noValidate>
+            <Input
+              onBlur={handleBlur}
+              type="email"
+              name="email1"
+              placeholder="email"
+              value={values.email1}
+              onChange={handleChange}
+            />
+            {errors.email1 && <p className="error-text">{errors.email1}</p>}
 
-          <Input
-            onChange={event => setPassword(event.target.value)}
-            type="password"
-            name="password"
-            placeholder="Password"
-          />
-          <Button type="submit" name="signup_submit" className="btn">
-            submit
-          </Button>
+            <Input
+              onBlur={handleBlur}
+              type="password"
+              name="password1"
+              placeholder="Password"
+              value={values.password1}
+              onChange={handleChange}
+            />
+            {errors.password1 && <p className="error-text">{errors.password1}</p>}
+            <Button
+              disabled={isSubmiting}
+              type="submit"
+              name="signup_submit"
+              className="btn"
+            >
+              submit
+            </Button>
+          </Form>
         </div>
-        <div className="right">
-              <img src={inkscape} alt="unnamed" className="image"></img>
-            </div>
-      </Form>
-    </React.Fragment>
+      </div>
+      <div className="right">
+        <img src={inkscape} alt="unnamed" className="image"></img>
+      </div>
+    </div>
   );
 };
 

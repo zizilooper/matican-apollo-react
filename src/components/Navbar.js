@@ -1,29 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/style.css";
+import { NavLink } from "react-router-dom";
 
-
-import { Link } from "react-router-dom";
-
-class Navbar extends Component {
-  render() {
-    return (
-      <ul className="nav">
-        <Link className="nav-link " to="/">
-          <li className="item">Login</li>
-        </Link>
-        <Link className="nav-link" to="/registration">
-          <li className="item">Register</li>
-        </Link>
-        <Link className="nav-link " to="/usersInfo">
-          <li className="item">UserInfo</li>
-        </Link>
-        <Link className="nav-link" to="/gqlData">
-          <li className="item">GqlData</li>
-        </Link>
-      </ul>
-    );
-  }
+function Navbar() {
+  return (
+    <ul className="nav">
+      <NavLink className="nav-link " to="/">
+        <li className="item">Login</li>
+      </NavLink>
+      <NavLink className="nav-link" to="/registration">
+        <li className="item">Register</li>
+      </NavLink>
+      <NavLink className="nav-link " to="/usersInfo">
+        <li className="item">UserInfo</li>
+      </NavLink>
+      <NavLink className="nav-link" to="/gqlData">
+        <li className="item">GqlData</li>
+      </NavLink>
+    </ul>
+  );
 }
 
 export default Navbar;

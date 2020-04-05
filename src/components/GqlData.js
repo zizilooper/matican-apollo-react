@@ -21,7 +21,7 @@ const GqlData = () => {
   if (loading) return <h4>loading</h4>;
   return data.launches.map(({ mission_name, mission_id, launch_year }) => (
     <Fragment>
-      <div className="dataWrapper"key='{mission_id}'>
+      <div className="dataWrapper"key={mission_id}>
         <h4 className="data">
      {mission_name}/{launch_year}
         </h4>
